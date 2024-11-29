@@ -1,0 +1,58 @@
+plugins {
+    id "com.android.application"
+    // START: FlutterFire Configuration
+    id 'com.google.gms.google-services'
+    // END: FlutterFire Configuration
+    id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace = "com.example.demo_app"
+    compileSdk = 34
+    ndkVersion = "25.1.8937393"
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId = "com.example.demo_app"
+        minSdk = 23
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("C:/Users/DeLL/.android/debug.keystore")  // Ensure the path is correct
+            storePassword project.hasProperty('KEYSTORE_PASSWORD') ? project.KEYSTORE_PASSWORD : ""
+            keyAlias project.hasProperty('KEY_ALIAS') ? project.KEY_ALIAS : ""
+            keyPassword project.hasProperty('KEY_PASSWORD') ? project.KEY_PASSWORD : ""
+        }
+
+        release {
+            storeFile file("C:/Users/DeLL/.android/debug.keystore")  // Use debug keystore for now
+            storePassword project.hasProperty('KEYSTORE_PASSWORD') ? project.KEYSTORE_PASSWORD : ""
+            keyAlias project.hasProperty('KEY_ALIAS') ? project.KEY_ALIAS : ""
+            keyPassword project.hasProperty('KEY_PASSWORD') ? project.KEY_PASSWORD : ""
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
